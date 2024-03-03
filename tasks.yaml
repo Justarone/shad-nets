@@ -25,76 +25,35 @@ deadlines:
     - group: containerlab
       enabled: true
       start: 2024-02-15 18:00:00
-      end: 2024-03-17 18:00:00
+      end: 2024-06-01 18:00:00
       tasks:
         - task: static_routing
           score: 50
-    - group: containerlab
-      enabled: true
-      start: 2024-03-01 18:00:00
-      end: 2024-06-01 18:00:00
-      tasks:
         - task: dynamic_routing
           score: 100
-    - group: containerlab
-      enabled: true
-      start: 2024-03-01 18:00:00
-      end: 2024-06-01 18:00:00
-      tasks:
         - task: dc_fabric
           score: 100
-    - group: containerlab
-      enabled: true
-      start: 2024-03-01 18:00:00
-      steps:
-        0.5: 21d
-      end: 2024-06-01 18:00:00
-      tasks:
         - task: dc_fabric_bgp
           score: 100
-
     - group: tools
       enabled: true
       start: 2024-02-15 18:00:00
-      end: 2024-03-17 18:00:00
+      end: 2024-06-01 18:00:00
       tasks:
         - task: kernel_tools
           score: 100
-    - group: tools
-      enabled: true
-      start: 2024-03-01 18:00:00
-      end: 2024-06-01 18:00:00
-      tasks:
         - task: retransmits
           score: 150
-    - group: tools
-      enabled: true
-      start: 2024-03-01 18:00:00
-      end: 2024-06-01 18:00:00
-      tasks:
         - task: scapy_mtr
           score: 100
-    - group: tools
-      enabled: true
-      start: 2024-03-01 18:00:00
-      steps:
-        0.5: 21d
-      end: 2024-06-01 18:00:00
-      tasks:
         - task: scapy_nmap
           score: 100
-
     - group: cryptography
       enabled: true
       start: 2024-02-15 18:00:00
-      end: 2024-03-17 18:00:00
+      end: 2024-06-01 18:00:00
       tasks:
         - task: traffic_analysis
           score: 100
-    - group: cryptography
-      enabled: true
-      start: 2024-03-01 18:00:00
-      end: 2024-06-01 18:00:00
-      tasks:
         - task: vpn_project
           score: 100
