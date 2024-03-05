@@ -1,0 +1,7 @@
+{
+    "container_template": "clab-frrlab1_1-{}",
+    "execute_commands": true,
+    "check_all": false,
+    "check_nodes": ["router1"],
+    "check_ips": ["192.168.33.4"]
+}
