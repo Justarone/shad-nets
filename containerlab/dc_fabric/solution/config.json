@@ -1,0 +1,26 @@
+{
+    "tor": {
+        "client_ports": {
+            "count": 48,
+            "bandwidth": 10
+        },
+        "spine_ports": {
+            "max_count": 8,
+            "bandwidth": 100
+        },
+        "price": 10000
+    },
+    "oversubscription": 1,
+    "spines": [
+        {
+            "price": 20000,
+            "ports": 32
+        },
+        {
+            "price": 35000,
+            "ports": 64
+        }
+    ],
+    "link_price": 1000,
+    "safe": false
+}
