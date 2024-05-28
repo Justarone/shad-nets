@@ -1,0 +1,54 @@
+name: frrlab4
+topology:
+  nodes:
+    leaf1:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - daemons:/etc/frr/daemons
+    leaf2:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - daemons:/etc/frr/daemons
+    spine1:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - daemons:/etc/frr/daemons
+    spine2:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - daemons:/etc/frr/daemons
+    spine3:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - daemons:/etc/frr/daemons
+    spine4:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - daemons:/etc/frr/daemons
+    PC1:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - daemons:/etc/frr/daemons
+    PC2:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - daemons:/etc/frr/daemons
+  links:
+    - endpoints: ["leaf1:eth1", "spine2:eth1"]
+    - endpoints: ["leaf1:eth2", "spine1:eth2"]
+    - endpoints: ["leaf1:eth4", "spine3:eth2"]
+    - endpoints: ["leaf1:eth5", "spine4:eth1"]
+    - endpoints: ["leaf2:eth2", "spine2:eth2"]
+    - endpoints: ["leaf2:eth1", "spine1:eth1"]
+    - endpoints: ["leaf2:eth4", "spine3:eth1"]
+    - endpoints: ["leaf2:eth5", "spine4:eth2"]
+    - endpoints: ["PC1:eth1", "leaf1:eth3"]
+    - endpoints: ["PC2:eth1", "leaf2:eth3"]
