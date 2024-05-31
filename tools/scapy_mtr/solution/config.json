@@ -1,9 +1,9 @@
 {
     "algorithm": {
-        "target_address": "8.8.8.8"
+        "target_address": "2001:4860:4860::8888"
     },
     "sender": {
         "l4": "udp",
-        "l3": "ipv4"
+        "l3": "ipv6"
     }
 }

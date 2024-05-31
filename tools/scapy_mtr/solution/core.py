@@ -20,7 +20,7 @@ class Sender:
 
 
 class HopStat:
-    COLUMNS = ["lost", "lost %", "avg ms", "min ms", "max ms", "addresses"]
+    COLUMNS = ["sent", "lost %", "avg ms", "min ms", "max ms", "addresses"]
     def __init__(self):
         self.addresses = set()
         self.collected = 0
@@ -31,16 +31,16 @@ class HopStat:
         self.addresses.add(trace_item["response"].received_from)
         self.collected += trace_item["response"].status != Response.NO_ANSWER
         self.total += 1
-        self.times.append(trace_item["time"])
+        self.times.append(trace_item["time"] * 1000)
 
     def get_stat_list(self):
         return [
-            self.total - self.collected,
-            (self.total - self.collected) / self.total,
-            sum(self.times) / len(self.times),
-            min(self.times),
-            max(self.times),
-            ', '.join(map(lambda a: 'uknown' if a is None else a, self.addresses)),
+            self.total,
+            "{:.2f}".format((self.total - self.collected) / self.total * 100) + '%',
+            "{:.2f}".format(sum(self.times) / len(self.times)),
+            "{:.2f}".format(min(self.times)),
+            "{:.2f}".format(max(self.times)),
+            ', '.join(map(lambda a: 'unknown' if a is None else a, self.addresses)),
         ]
 
 

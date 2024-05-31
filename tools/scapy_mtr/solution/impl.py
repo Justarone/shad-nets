@@ -7,7 +7,8 @@ logging.getLogger('scrapy').propagate = False
 
 
 def is_icmp_expired(response):
-    return ICMP in response and response.proto == 1 and response.type == 11 and response.code == 0
+    return ICMP in response and response.proto == 1 and response.type == 11 and response.code == 0 \
+        or ICMPv6TimeExceeded in response
 
 
 def not_valid(response):
@@ -38,7 +39,7 @@ class PacketSender(Sender):
 def ipv6_packet_factory(dst, ttl=None):
     kwargs = {"dst": dst}
     if ttl is not None:
-        kwargs["ttl"] = ttl
+        kwargs["hlim"] = ttl
     return IPv6(**kwargs)
 
 
@@ -53,8 +54,8 @@ def tcp_syn_packet_factory(l3packet, port):
     return l3packet/TCP(dport=port)
 
 
-def icmp_packet_factory(l3packet):
-    return l3packet/ICMP()
+def icmp_packet_factory(l3packet, is_v6):
+    return l3packet/(ICMP() if not is_v6 else ICMPv6EchoRequest())
 
 
 def udp_dns_packet_factory(l3packet):
@@ -67,10 +68,12 @@ def raw_udp_packet_factory(l3packet, port, payload):
 
 def build_sender(config):
     l3 = config.get('l3', 'ip')
+    is_ipv6 = False
     l3Factory = None
     if l3.lower() in ['ip', 'ipv4']:
         l3Factory = ipv4_packet_factory
     elif l3.lower() == 'ipv6':
+        is_ipv6 = True
         l3Factory = ipv6_packet_factory
     else:
         raise RuntimeError("unknown l3 protocol")
@@ -78,7 +81,7 @@ def build_sender(config):
     l4 = config.get('l4', 'icmp')
     l4Factory = None
     if l4 == 'icmp':
-        l4Factory = icmp_packet_factory
+        l4Factory = lambda l3p: icmp_packet_factory(l3p, is_ipv6)
     elif l4 == 'tcp':
         port = config["port"]
         l4Factory = lambda l3p: tcp_syn_packet_factory(l3p, port)
